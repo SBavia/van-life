@@ -1,14 +1,15 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Home from 'src/pages/Home';
-import About from './pages/About';
-import { Vans, VanDetail } from './pages/vans';
-// import VanDetail from './pages/vans/VanDetail';
-import Layout from './components/Layout';
+import Layout from '../Layout';
+import Home from '../../pages/Home';
+import About from '../../pages/About';
+import HostLayout from '../HostLayout';
+import { Vans, VanDetail } from '../../pages/Vans';
+import { Dashboard, Income, Reviews } from '../../pages/Host';
 
-import './server';
+import '../../server';
 
-import './App.css';
+import './app.css';
 
 const App = () => {
   return (
@@ -19,6 +20,11 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/vans" element={<Vans />} />
           <Route path="/vans/:id" element={<VanDetail />} />
+          <Route path="/host" element={<HostLayout />}>
+            <Route path="/host" element={<Dashboard />} />
+            <Route path="/host/income" element={<Income />} />
+            <Route path="/host/reviews" element={<Reviews />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
