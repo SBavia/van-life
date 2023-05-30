@@ -1,4 +1,4 @@
-import VanDetail from './VanDetail';
+import VanDetail, { loader as vanDetailLoader } from './VanDetail';
 import Vans, { loader as vansLoader } from './Vans';
 
-export { VanDetail, Vans, vansLoader };
+export { VanDetail, Vans, vansLoader, vanDetailLoader };
