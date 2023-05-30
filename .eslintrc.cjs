@@ -16,7 +16,6 @@ module.exports = {
   settings: { react: { version: '18.2' } },
   plugins: ['react-refresh', 'prettier'],
   rules: {
-    'react-refresh/only-export-components': 'warn',
     'no-shadow': 'off',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'react/function-component-definition': [
