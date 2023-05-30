@@ -1,4 +1,4 @@
-async function getVans() {
+export default async function getVans() {
   const res = await fetch('/api/vans');
   if (!res.ok) {
     // eslint-disable-next-line no-throw-literal
@@ -12,5 +12,3 @@ async function getVans() {
 
   return data.vans;
 }
-
-export { getVans };
