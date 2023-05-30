@@ -1,19 +1,42 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
+
+import { getVans } from '../../api';
 
 const Vans = () => {
   const [vans, setVans] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const typeFilter = searchParams.get('type');
 
   useEffect(() => {
-    fetch('/api/vans')
-      .then((res) => res.json())
-      .then(({ vans }) => setVans(vans));
+    async function loadVans() {
+      setLoading(true);
+      try {
+        const data = await getVans();
+        setVans(data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadVans();
   }, []);
 
-  const vansElements = vans.map((van) => {
+  const displayedVans = typeFilter
+    ? vans.filter((van) => van.type === typeFilter)
+    : vans;
+
+  const vansElements = displayedVans.map((van) => {
     return (
       <div key={van.id} className="van-tile">
-        <Link to={`/vans/${van.id}`}>
+        <Link
+          to={van.id}
+          state={{ search: `?${searchParams.toString()}`, type: typeFilter }}
+        >
           <img src={van.imageUrl} alt="van" />
           <div className="van-info">
             <h3>{van.name}</h3>
@@ -28,9 +51,64 @@ const Vans = () => {
     );
   });
 
+  const handleFilterChange = (key, value) => {
+    setSearchParams((prevParams) => {
+      if (value === null) {
+        prevParams.delete(key);
+      } else {
+        prevParams.set(key, value);
+      }
+      return prevParams;
+    });
+  };
+
+  const genClassName = (type) => {
+    return `van-type ${type} ${typeFilter === type && 'selected'}`;
+  };
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1>There was an error: {error.message}</h1>;
+  }
+
   return (
     <div className="van-list-container">
       <h1>Explore our van options</h1>
+      <div className="van-list-filter-buttons">
+        <button
+          type="button"
+          className={genClassName('simple')}
+          onClick={() => handleFilterChange('type', 'simple')}
+        >
+          Simple
+        </button>
+        <button
+          type="button"
+          className={genClassName('luxury')}
+          onClick={() => handleFilterChange('type', 'luxury')}
+        >
+          Luxury
+        </button>
+        <button
+          type="button"
+          className={genClassName('rugged')}
+          onClick={() => handleFilterChange('type', 'rugged')}
+        >
+          Rugged
+        </button>
+        {typeFilter && (
+          <button
+            type="button"
+            className="van-type clear-filters"
+            onClick={() => handleFilterChange('type', null)}
+          >
+            Clear filter
+          </button>
+        )}
+      </div>
       <div className="van-list">{vansElements}</div>
     </div>
   );

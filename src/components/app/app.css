@@ -19,12 +19,6 @@ header .site-logo {
   font-size: 25px;
 }
 
-a.active-link {
-  font-weight: bold;
-  text-decoration: underline;
-  color: #161616;
-}
-
 header a {
   text-decoration: none;
   color: #4d4d4d;
@@ -66,10 +60,6 @@ footer {
   transition: transform 0.1s ease-in-out;
 }
 
-.link-button:hover {
-  transform: translate(1px, 1px);
-}
-
 .back-button {
   display: block;
   color: black;
@@ -80,6 +70,10 @@ footer {
 
 .back-button span:hover {
   text-decoration: underline;
+}
+
+.link-button:hover {
+  transform: translate(1px, 1px);
 }
 
 /*** HOME PAGE ***/
@@ -167,6 +161,15 @@ footer {
 /*** VAN PAGES ***/
 .van-list-container {
   padding-inline: 23px;
+}
+
+.van-list-filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.van-list-filter-buttons > a {
+  margin-right: 15px;
 }
 
 .van-list {
@@ -300,6 +303,7 @@ i[class*='van-type-'] {
   font-size: 1.125rem;
 }
 
+/*** HOST PAGES ***/
 .host-nav {
   display: flex;
 }
@@ -432,4 +436,15 @@ i[class*='van-type-'] {
 .host-van-detail-image {
   height: 100px;
   border-radius: 5px;
+}
+
+/*** NOT FOUND PAGE ***/
+.not-found-container {
+  padding-inline: 26px;
+}
+
+.not-found-container .link-button {
+  width: 100%;
+  background-color: #161616;
+  color: white;
 }
