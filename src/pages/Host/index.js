@@ -1,4 +1,4 @@
-import Dashboard from './Dashboard';
+import Dashboard, { loader as dashboardLoader } from './Dashboard';
 import Income from './Income';
 import Reviews from './Reviews';
 import HostVans, { loader as hostVansLoader } from './HostVans';
@@ -9,6 +9,7 @@ import HostVanPricing from './HostVanPricing';
 
 export {
   Dashboard,
+  dashboardLoader,
   Income,
   HostVans,
   hostVansLoader,

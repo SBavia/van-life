@@ -17,6 +17,7 @@ module.exports = {
   plugins: ['react-refresh', 'prettier'],
   rules: {
     'no-shadow': 'off',
+    'react/no-array-index-key': 'off',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'react/function-component-definition': [
       2,
